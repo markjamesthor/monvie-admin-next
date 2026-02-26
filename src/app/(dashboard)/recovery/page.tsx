@@ -57,43 +57,43 @@ const topStats = [
     label: "이번 주 이탈 건수",
     value: "156건",
     icon: AlertTriangle,
-    color: "text-red-600",
-    bg: "bg-red-100",
+    color: "text-red-400",
+    bg: "bg-red-500/10",
   },
   {
     label: "리커버리 발송",
     value: "89건",
     icon: Send,
-    color: "text-blue-600",
-    bg: "bg-blue-100",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
   },
   {
     label: "오픈율",
     value: "42.7%",
     icon: MailOpen,
-    color: "text-amber-600",
-    bg: "bg-amber-100",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
   },
   {
     label: "클릭률",
     value: "18.3%",
     icon: MousePointerClick,
-    color: "text-violet-600",
-    bg: "bg-violet-100",
+    color: "text-violet-400",
+    bg: "bg-violet-500/10",
   },
   {
     label: "전환",
     value: "12건",
     icon: ShoppingBag,
-    color: "text-green-600",
-    bg: "bg-green-100",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
   },
   {
     label: "리커버된 매출",
     value: "₩588,000",
     icon: DollarSign,
-    color: "text-emerald-600",
-    bg: "bg-emerald-100",
+    color: "text-emerald-400",
+    bg: "bg-emerald-500/10",
   },
 ];
 
@@ -205,11 +205,11 @@ const cartRecoveries: CartRecoveryItem[] = [
 
 function getEmailStatusBadge(status: EmailStatus) {
   const styles: Record<EmailStatus, string> = {
-    미발송: "bg-gray-100 text-gray-700",
-    "1차발송": "bg-blue-100 text-blue-700",
-    오픈됨: "bg-green-100 text-green-700",
-    클릭됨: "bg-violet-100 text-violet-700",
-    전환: "bg-emerald-100 text-emerald-700",
+    미발송: "bg-muted text-muted-foreground",
+    "1차발송": "bg-blue-500/20 text-blue-400",
+    오픈됨: "bg-green-500/20 text-green-400",
+    클릭됨: "bg-violet-500/20 text-violet-400",
+    전환: "bg-emerald-500/20 text-emerald-400",
   };
   return <Badge className={styles[status]}>{status}</Badge>;
 }
@@ -250,7 +250,7 @@ function getActionButtons(status: EmailStatus) {
       );
     case "전환":
       return (
-        <span className="text-xs text-emerald-600 font-medium">전환 완료</span>
+        <span className="text-xs text-emerald-400 font-medium">전환 완료</span>
       );
   }
 }
@@ -267,8 +267,8 @@ export default function RecoveryPage() {
     <div className="space-y-6 p-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">리커버리 캠페인</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">리커버리 캠페인</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           이탈 고객 리커버리 현황 및 캠페인을 관리합니다.
         </p>
       </div>
@@ -284,8 +284,8 @@ export default function RecoveryPage() {
                   <Icon className={`h-4 w-4 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">{stat.label}</p>
-                  <p className="text-lg font-bold text-gray-900">
+                  <p className="text-xs text-muted-foreground">{stat.label}</p>
+                  <p className="text-lg font-bold text-foreground">
                     {stat.value}
                   </p>
                 </div>
@@ -321,22 +321,22 @@ export default function RecoveryPage() {
                 <TableRow key={item.id}>
                   <TableCell>
                     <div>
-                      <div className="font-medium text-gray-900">
+                      <div className="font-medium text-foreground">
                         {item.customerName}
                       </div>
-                      <div className="text-xs text-gray-400">{item.email}</div>
+                      <div className="text-xs text-muted-foreground">{item.email}</div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm text-gray-700">
+                  <TableCell className="text-sm text-foreground/80">
                     {item.theme}
                   </TableCell>
                   <TableCell className="text-center">
                     {item.photoCount}장
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.abandonedAt}
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.elapsed}
                   </TableCell>
                   <TableCell>{getEmailStatusBadge(item.emailStatus)}</TableCell>
@@ -374,22 +374,22 @@ export default function RecoveryPage() {
                 <TableRow key={item.id}>
                   <TableCell>
                     <div>
-                      <div className="font-medium text-gray-900">
+                      <div className="font-medium text-foreground">
                         {item.customerName}
                       </div>
-                      <div className="text-xs text-gray-400">{item.email}</div>
+                      <div className="text-xs text-muted-foreground">{item.email}</div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm text-gray-700">
+                  <TableCell className="text-sm text-foreground/80">
                     {item.theme}
                   </TableCell>
                   <TableCell className="text-right font-medium">
                     {formatCurrency(item.amount)}
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.abandonedAt}
                   </TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.elapsed}
                   </TableCell>
                   <TableCell>{getEmailStatusBadge(item.emailStatus)}</TableCell>

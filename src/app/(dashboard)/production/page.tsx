@@ -149,29 +149,29 @@ const stats = [
     label: "제작대기",
     value: 8,
     icon: Factory,
-    color: "text-gray-600",
-    bg: "bg-gray-100",
+    color: "text-muted-foreground",
+    bg: "bg-muted",
   },
   {
     label: "인쇄중",
     value: 12,
     icon: Printer,
-    color: "text-amber-600",
-    bg: "bg-amber-100",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
   },
   {
     label: "품질검수",
     value: 5,
     icon: ShieldCheck,
-    color: "text-violet-600",
-    bg: "bg-violet-100",
+    color: "text-violet-400",
+    bg: "bg-violet-500/10",
   },
   {
     label: "제작완료",
     value: 32,
     icon: CheckCircle2,
-    color: "text-green-600",
-    bg: "bg-green-100",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
   },
 ];
 
@@ -179,19 +179,19 @@ function getPriorityBadge(priority: Priority) {
   switch (priority) {
     case "긴급":
       return (
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-red-700">
+        <span className="inline-flex items-center gap-1 text-sm font-medium text-red-400">
           <span className="text-base">🔴</span> 긴급
         </span>
       );
     case "보통":
       return (
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-yellow-700">
+        <span className="inline-flex items-center gap-1 text-sm font-medium text-yellow-400">
           <span className="text-base">🟡</span> 보통
         </span>
       );
     case "여유":
       return (
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-green-700">
+        <span className="inline-flex items-center gap-1 text-sm font-medium text-green-400">
           <span className="text-base">🟢</span> 여유
         </span>
       );
@@ -200,11 +200,11 @@ function getPriorityBadge(priority: Priority) {
 
 function getStatusBadge(status: ProductionStatus) {
   const styles: Record<ProductionStatus, string> = {
-    대기: "bg-gray-100 text-gray-700",
-    인쇄중: "bg-amber-100 text-amber-700",
-    제본중: "bg-blue-100 text-blue-700",
-    품질검수: "bg-violet-100 text-violet-700",
-    완료: "bg-green-100 text-green-700",
+    대기: "bg-muted text-muted-foreground",
+    인쇄중: "bg-amber-500/20 text-amber-400",
+    제본중: "bg-blue-500/20 text-blue-400",
+    품질검수: "bg-violet-500/20 text-violet-400",
+    완료: "bg-green-500/20 text-green-400",
   };
   return <Badge className={styles[status]}>{status}</Badge>;
 }
@@ -216,8 +216,8 @@ export default function ProductionPage() {
     <div className="space-y-6 p-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">제작 관리</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">제작 관리</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           주문별 제작 상태를 관리하고 진행 상황을 추적합니다.
         </p>
       </div>
@@ -233,8 +233,8 @@ export default function ProductionPage() {
                   <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {stat.value}
                   </p>
                 </div>
@@ -248,10 +248,10 @@ export default function ProductionPage() {
       <Card>
         <CardContent>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-foreground/80">
               오늘 목표: 32/50권
             </span>
-            <span className="text-sm font-semibold text-violet-600">64%</span>
+            <span className="text-sm font-semibold text-violet-400">64%</span>
           </div>
           <Progress value={64} className="h-3" />
         </CardContent>
@@ -280,18 +280,18 @@ export default function ProductionPage() {
               {items.map((item) => (
                 <TableRow key={item.id}>
                   <TableCell>{getPriorityBadge(item.priority)}</TableCell>
-                  <TableCell className="font-mono text-sm text-gray-600">
+                  <TableCell className="font-mono text-sm text-muted-foreground">
                     {item.orderNumber}
                   </TableCell>
-                  <TableCell className="font-medium text-gray-900">
+                  <TableCell className="font-medium text-foreground">
                     {item.theme}
                   </TableCell>
                   <TableCell className="text-center">{item.quantity}권</TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.paidAt}
                   </TableCell>
                   <TableCell>{getStatusBadge(item.status)}</TableCell>
-                  <TableCell className="text-sm text-gray-500">
+                  <TableCell className="text-sm text-muted-foreground">
                     {item.estimatedComplete}
                   </TableCell>
                   <TableCell>
@@ -308,7 +308,7 @@ export default function ProductionPage() {
                       </Button>
                     )}
                     {item.status === "완료" && (
-                      <span className="text-sm text-gray-400">완료됨</span>
+                      <span className="text-sm text-muted-foreground">완료됨</span>
                     )}
                   </TableCell>
                 </TableRow>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -12,6 +13,9 @@ import {
   Users,
   Mail,
   Settings,
+  Wallet,
+  Moon,
+  Sun,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -37,6 +41,7 @@ const navSections: NavSection[] = [
     title: "분석",
     items: [
       { label: "퍼널 분석", href: "/funnel", icon: TrendingUp },
+      { label: "재무 분석", href: "/finance", icon: Wallet },
       { label: "디자인 세션", href: "/design-sessions", icon: Palette },
       { label: "장바구니", href: "/carts", icon: ShoppingCart },
     ],
@@ -65,6 +70,13 @@ const navSections: NavSection[] = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const [isDark, setIsDark] = useState(true);
+
+  const toggleTheme = () => {
+    const html = document.documentElement;
+    html.classList.toggle("dark");
+    setIsDark(!isDark);
+  };
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -72,15 +84,15 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="fixed left-0 top-0 z-30 flex h-full w-64 flex-col border-r border-gray-200 bg-white">
+    <aside className="fixed left-0 top-0 z-30 flex h-full w-64 flex-col border-r border-border bg-card">
       {/* Brand */}
       <div className="flex items-center gap-3 px-6 py-6">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-600 text-lg font-bold text-white">
           M
         </div>
         <div>
-          <div className="text-sm font-bold text-gray-900">몽비스토리</div>
-          <div className="text-xs text-gray-400">Admin</div>
+          <div className="text-sm font-bold text-foreground">몽비스토리</div>
+          <div className="text-xs text-muted-foreground">Admin</div>
         </div>
       </div>
 
@@ -89,7 +101,7 @@ export function Sidebar() {
         {navSections.map((section) => (
           <div key={section.title || "top"} className="mb-2">
             {section.title && (
-              <div className="mb-1 mt-4 px-3 text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+              <div className="mb-1 mt-4 px-3 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
                 {section.title}
               </div>
             )}
@@ -103,8 +115,8 @@ export function Sidebar() {
                       href={item.href}
                       className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
                         active
-                          ? "bg-violet-50 font-semibold text-violet-700"
-                          : "text-gray-600 hover:bg-gray-50"
+                          ? "bg-violet-500/10 font-semibold text-violet-400"
+                          : "text-muted-foreground hover:bg-accent"
                       }`}
                     >
                       <Icon className="h-4 w-4 shrink-0" />
@@ -119,11 +131,18 @@ export function Sidebar() {
       </nav>
 
       {/* Bottom */}
-      <div className="border-t border-gray-100 px-6 py-4">
-        <div className="mb-1 text-xs font-medium text-gray-500">
+      <div className="border-t border-border px-6 py-4">
+        <button
+          onClick={toggleTheme}
+          className="mb-3 flex w-full items-center justify-center gap-2 rounded-md border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-accent"
+        >
+          {isDark ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+          {isDark ? "라이트 모드" : "다크 모드"}
+        </button>
+        <div className="mb-1 text-xs font-medium text-muted-foreground">
           Phase 2 · 5인 운영
         </div>
-        <div className="text-[11px] text-gray-400">v1.0 · MVP</div>
+        <div className="text-[11px] text-muted-foreground">v1.0 · MVP</div>
       </div>
     </aside>
   );

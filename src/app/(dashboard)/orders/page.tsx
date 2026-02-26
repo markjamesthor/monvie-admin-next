@@ -35,15 +35,15 @@ const STATUS_LABEL: Record<OrderStatus, string> = {
 };
 
 const STATUS_COLOR: Record<OrderStatus, string> = {
-  paid: "bg-blue-100 text-blue-700",
-  preparing: "bg-amber-100 text-amber-700",
-  in_production: "bg-amber-100 text-amber-700",
-  quality_check: "bg-amber-100 text-amber-700",
-  packing: "bg-amber-100 text-amber-700",
-  shipped: "bg-teal-100 text-teal-700",
-  delivered: "bg-green-100 text-green-700",
-  cancelled: "bg-red-100 text-red-700",
-  refunded: "bg-red-100 text-red-700",
+  paid: "bg-blue-500/20 text-blue-400",
+  preparing: "bg-amber-500/20 text-amber-400",
+  in_production: "bg-amber-500/20 text-amber-400",
+  quality_check: "bg-amber-500/20 text-amber-400",
+  packing: "bg-amber-500/20 text-amber-400",
+  shipped: "bg-teal-500/20 text-teal-400",
+  delivered: "bg-green-500/20 text-green-400",
+  cancelled: "bg-red-500/20 text-red-400",
+  refunded: "bg-red-500/20 text-red-400",
 };
 
 // ---------------------------------------------------------------------------
@@ -93,9 +93,9 @@ export default function OrdersPage() {
     <div className="space-y-6 p-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <Package className="h-6 w-6 text-violet-600" />
-        <h1 className="text-2xl font-bold text-gray-900">주문 관리</h1>
-        <span className="text-sm text-gray-400">
+        <Package className="h-6 w-6 text-violet-400" />
+        <h1 className="text-2xl font-bold text-foreground">주문 관리</h1>
+        <span className="text-sm text-muted-foreground">
           총 {MOCK_ORDERS.length}건
         </span>
       </div>
@@ -109,7 +109,7 @@ export default function OrdersPage() {
           {TABS.map((tab) => (
             <TabsTrigger key={tab.key} value={tab.key}>
               {tab.label}
-              <span className="ml-1 rounded-full bg-gray-100 px-1.5 py-0.5 text-[11px] font-semibold text-gray-500">
+              <span className="ml-1 rounded-full bg-muted px-1.5 py-0.5 text-[11px] font-semibold text-muted-foreground">
                 {countFor(tab)}
               </span>
             </TabsTrigger>
@@ -140,7 +140,7 @@ export default function OrdersPage() {
                 <TableRow>
                   <TableCell
                     colSpan={7}
-                    className="py-12 text-center text-gray-400"
+                    className="py-12 text-center text-muted-foreground"
                   >
                     해당 조건의 주문이 없습니다.
                   </TableCell>
@@ -149,16 +149,16 @@ export default function OrdersPage() {
                 filtered.map((order) => (
                   <TableRow key={order.id}>
                     {/* 주문번호 */}
-                    <TableCell className="font-medium text-gray-900">
+                    <TableCell className="font-medium text-foreground">
                       {order.orderNumber}
                     </TableCell>
 
                     {/* 고객 */}
                     <TableCell>
-                      <div className="text-sm font-medium text-gray-900">
+                      <div className="text-sm font-medium text-foreground">
                         {order.customerName}
                       </div>
-                      <div className="text-xs text-gray-400">
+                      <div className="text-xs text-muted-foreground">
                         {order.customerEmail}
                       </div>
                     </TableCell>
@@ -169,7 +169,7 @@ export default function OrdersPage() {
                         {order.items.map((item) => (
                           <span
                             key={item.id}
-                            className="text-sm text-gray-700"
+                            className="text-sm text-foreground/80"
                           >
                             {THEME_NAMES[item.themeId]}
                           </span>
@@ -178,7 +178,7 @@ export default function OrdersPage() {
                     </TableCell>
 
                     {/* 금액 */}
-                    <TableCell className="text-right font-semibold text-gray-900">
+                    <TableCell className="text-right font-semibold text-foreground">
                       {fmtWon(order.total)}
                     </TableCell>
 
@@ -193,7 +193,7 @@ export default function OrdersPage() {
                     </TableCell>
 
                     {/* 주문일 */}
-                    <TableCell className="text-sm text-gray-500">
+                    <TableCell className="text-sm text-muted-foreground">
                       {new Date(order.createdAt).toLocaleDateString('ko-KR', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </TableCell>
 
@@ -211,7 +211,7 @@ export default function OrdersPage() {
 
           {/* Pagination hint */}
           {filtered.length > 0 && (
-            <div className="mt-4 flex items-center justify-between border-t border-gray-100 pt-4 text-sm text-gray-400">
+            <div className="mt-4 flex items-center justify-between border-t border-border pt-4 text-sm text-muted-foreground">
               <span>
                 {filtered.length}건 표시 중 (총 {MOCK_ORDERS.length}건)
               </span>

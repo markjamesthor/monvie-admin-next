@@ -33,27 +33,27 @@ const STATUS_CONFIG: Record<
   started: {
     emoji: "\uD83D\uDFE1",
     label: "시작됨",
-    color: "bg-yellow-100 text-yellow-700",
+    color: "bg-yellow-500/20 text-yellow-400",
   },
   in_progress: {
     emoji: "\uD83D\uDFE1",
     label: "진행중",
-    color: "bg-yellow-100 text-yellow-700",
+    color: "bg-yellow-500/20 text-yellow-400",
   },
   abandoned: {
     emoji: "\uD83D\uDD34",
     label: "이탈",
-    color: "bg-red-100 text-red-700",
+    color: "bg-red-500/20 text-red-400",
   },
   completed: {
     emoji: "\uD83D\uDFE2",
     label: "완료",
-    color: "bg-green-100 text-green-700",
+    color: "bg-green-500/20 text-green-400",
   },
   converted: {
     emoji: "\uD83D\uDD35",
     label: "전환됨",
-    color: "bg-blue-100 text-blue-700",
+    color: "bg-blue-500/20 text-blue-400",
   },
 };
 
@@ -126,26 +126,26 @@ export default function DesignSessionsPage() {
     {
       label: "진행중",
       value: countByStatus(["started", "in_progress"]),
-      color: "text-yellow-600",
-      bg: "bg-yellow-50",
+      color: "text-yellow-400",
+      bg: "bg-yellow-500/10",
     },
     {
       label: "이탈",
       value: countByStatus(["abandoned"]),
-      color: "text-red-600",
-      bg: "bg-red-50",
+      color: "text-red-400",
+      bg: "bg-red-500/10",
     },
     {
       label: "완료",
       value: countByStatus(["completed"]),
-      color: "text-green-600",
-      bg: "bg-green-50",
+      color: "text-green-400",
+      bg: "bg-green-500/10",
     },
     {
       label: "전환됨",
       value: countByStatus(["converted"]),
-      color: "text-blue-600",
-      bg: "bg-blue-50",
+      color: "text-blue-400",
+      bg: "bg-blue-500/10",
     },
   ];
 
@@ -153,9 +153,9 @@ export default function DesignSessionsPage() {
     <div className="space-y-6 p-6">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <Palette className="h-6 w-6 text-violet-600" />
-        <h1 className="text-2xl font-bold text-gray-900">디자인 세션</h1>
-        <span className="text-sm text-gray-400">
+        <Palette className="h-6 w-6 text-violet-400" />
+        <h1 className="text-2xl font-bold text-foreground">디자인 세션</h1>
+        <span className="text-sm text-muted-foreground">
           총 {MOCK_DESIGN_SESSIONS.length}건
         </span>
       </div>
@@ -165,7 +165,7 @@ export default function DesignSessionsPage() {
         {stats.map((stat) => (
           <Card key={stat.label} className={`${stat.bg} border-0`}>
             <CardContent className="flex items-center justify-between py-4">
-              <span className="text-sm font-medium text-gray-600">
+              <span className="text-sm font-medium text-muted-foreground">
                 {stat.label}
               </span>
               <span className={`text-2xl font-bold ${stat.color}`}>
@@ -185,7 +185,7 @@ export default function DesignSessionsPage() {
           {TABS.map((tab) => (
             <TabsTrigger key={tab.key} value={tab.key}>
               {tab.label}
-              <span className="ml-1 rounded-full bg-gray-100 px-1.5 py-0.5 text-[11px] font-semibold text-gray-500">
+              <span className="ml-1 rounded-full bg-muted px-1.5 py-0.5 text-[11px] font-semibold text-muted-foreground">
                 {MOCK_DESIGN_SESSIONS.filter(tab.filter).length}
               </span>
             </TabsTrigger>
@@ -216,7 +216,7 @@ export default function DesignSessionsPage() {
                 <TableRow>
                   <TableCell
                     colSpan={7}
-                    className="py-12 text-center text-gray-400"
+                    className="py-12 text-center text-muted-foreground"
                   >
                     해당 조건의 세션이 없습니다.
                   </TableCell>
@@ -237,27 +237,27 @@ export default function DesignSessionsPage() {
                       </TableCell>
 
                       {/* 고객명 */}
-                      <TableCell className="font-medium text-gray-900">
+                      <TableCell className="font-medium text-foreground">
                         {session.customerName}
                       </TableCell>
 
                       {/* 테마 */}
-                      <TableCell className="text-sm text-gray-700">
+                      <TableCell className="text-sm text-foreground/80">
                         {THEME_NAMES[session.themeId]}
                       </TableCell>
 
                       {/* 사진수 */}
-                      <TableCell className="text-center text-sm text-gray-700">
+                      <TableCell className="text-center text-sm text-foreground/80">
                         {session.photoCount}장
                       </TableCell>
 
                       {/* 경과시간 */}
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {formatElapsed(session.createdAt)}
                       </TableCell>
 
                       {/* 마지막활동 */}
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {session.lastAction}
                       </TableCell>
 
@@ -272,7 +272,7 @@ export default function DesignSessionsPage() {
                             <Button
                               variant="outline"
                               size="xs"
-                              className="border-red-200 text-red-600 hover:bg-red-50"
+                              className="border-red-500/30 text-red-400 hover:bg-red-500/10"
                             >
                               <Mail className="mr-1 h-3 w-3" />
                               리커버리

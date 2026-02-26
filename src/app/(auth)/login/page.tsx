@@ -47,7 +47,7 @@ export default function LoginPage() {
         </div>
         <div>
           <CardTitle className="text-2xl font-bold">몽비스토리 관리자</CardTitle>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             어드민 계정으로 로그인하세요
           </p>
         </div>
@@ -76,7 +76,7 @@ export default function LoginPage() {
           </div>
 
           {error && (
-            <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">
+            <div className="rounded-md bg-red-500/10 p-3 text-sm text-red-400">
               {error}
             </div>
           )}

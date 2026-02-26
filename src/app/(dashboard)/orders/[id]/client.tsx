@@ -51,15 +51,15 @@ const STATUS_LABEL: Record<OrderStatus, string> = {
 };
 
 const STATUS_COLOR: Record<OrderStatus, string> = {
-  paid: "bg-blue-100 text-blue-700",
-  preparing: "bg-amber-100 text-amber-700",
-  in_production: "bg-amber-100 text-amber-700",
-  quality_check: "bg-amber-100 text-amber-700",
-  packing: "bg-amber-100 text-amber-700",
-  shipped: "bg-teal-100 text-teal-700",
-  delivered: "bg-green-100 text-green-700",
-  cancelled: "bg-red-100 text-red-700",
-  refunded: "bg-red-100 text-red-700",
+  paid: "bg-blue-500/20 text-blue-400",
+  preparing: "bg-amber-500/20 text-amber-400",
+  in_production: "bg-amber-500/20 text-amber-400",
+  quality_check: "bg-amber-500/20 text-amber-400",
+  packing: "bg-amber-500/20 text-amber-400",
+  shipped: "bg-teal-500/20 text-teal-400",
+  delivered: "bg-green-500/20 text-green-400",
+  cancelled: "bg-red-500/20 text-red-400",
+  refunded: "bg-red-500/20 text-red-400",
 };
 
 const PRODUCTION_STATUS_LABEL: Record<ProductionStatus, string> = {
@@ -71,11 +71,11 @@ const PRODUCTION_STATUS_LABEL: Record<ProductionStatus, string> = {
 };
 
 const PRODUCTION_STATUS_COLOR: Record<ProductionStatus, string> = {
-  pending: "bg-gray-100 text-gray-700",
-  printing: "bg-amber-100 text-amber-700",
-  binding: "bg-amber-100 text-amber-700",
-  quality_check: "bg-yellow-100 text-yellow-700",
-  done: "bg-green-100 text-green-700",
+  pending: "bg-muted text-foreground/80",
+  printing: "bg-amber-500/20 text-amber-400",
+  binding: "bg-amber-500/20 text-amber-400",
+  quality_check: "bg-yellow-500/20 text-yellow-400",
+  done: "bg-green-500/20 text-green-400",
 };
 
 function getTimelineDotColor(action: string): string {
@@ -98,7 +98,7 @@ function getTimelineDotColor(action: string): string {
     case "refunded":
       return "text-red-500";
     default:
-      return "text-gray-400";
+      return "text-muted-foreground";
   }
 }
 
@@ -108,7 +108,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
   if (!order) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-12">
-        <p className="text-lg text-gray-500">존재하지 않는 항목입니다.</p>
+        <p className="text-lg text-muted-foreground">존재하지 않는 항목입니다.</p>
         <Button variant="outline" asChild>
           <Link href="/orders">
             <ArrowLeft className="mr-1 h-4 w-4" />
@@ -155,8 +155,8 @@ export default function OrderDetailClient({ id }: { id: string }) {
             </Link>
           </Button>
           <div className="flex items-center gap-3">
-            <Package className="h-6 w-6 text-violet-600" />
-            <h1 className="text-2xl font-bold text-gray-900">
+            <Package className="h-6 w-6 text-violet-400" />
+            <h1 className="text-2xl font-bold text-foreground">
               {order.orderNumber}
             </h1>
             <Badge variant="secondary" className={STATUS_COLOR[order.status]}>
@@ -181,23 +181,23 @@ export default function OrderDetailClient({ id }: { id: string }) {
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <User className="h-4 w-4" />
               고객 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div>
-              <span className="text-sm text-gray-500">이름</span>
-              <p className="text-sm font-medium text-gray-900">{order.customerName}</p>
+              <span className="text-sm text-muted-foreground">이름</span>
+              <p className="text-sm font-medium text-foreground">{order.customerName}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">이메일</span>
-              <p className="text-sm font-medium text-gray-900">{order.customerEmail}</p>
+              <span className="text-sm text-muted-foreground">이메일</span>
+              <p className="text-sm font-medium text-foreground">{order.customerEmail}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">주문 횟수</span>
-              <p className="text-sm font-medium text-gray-900">
+              <span className="text-sm text-muted-foreground">주문 횟수</span>
+              <p className="text-sm font-medium text-foreground">
                 {customer ? `${customer.totalOrders}건` : "-"}
               </p>
             </div>
@@ -206,38 +206,38 @@ export default function OrderDetailClient({ id }: { id: string }) {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Package className="h-4 w-4" />
               주문 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div>
-              <span className="text-sm text-gray-500">테마</span>
-              <p className="text-sm font-medium text-gray-900">
+              <span className="text-sm text-muted-foreground">테마</span>
+              <p className="text-sm font-medium text-foreground">
                 {order.items.map((item) => THEME_NAMES[item.themeId]).join(", ")}
               </p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">수량</span>
-              <p className="text-sm font-medium text-gray-900">
+              <span className="text-sm text-muted-foreground">수량</span>
+              <p className="text-sm font-medium text-foreground">
                 {order.items.reduce((sum, item) => sum + item.quantity, 0)}권
               </p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">결제금액</span>
-              <p className="text-sm font-bold text-gray-900">{fmtWon(order.total)}</p>
+              <span className="text-sm text-muted-foreground">결제금액</span>
+              <p className="text-sm font-bold text-foreground">{fmtWon(order.total)}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">결제수단</span>
-              <p className="text-sm font-medium text-gray-900">{order.paymentMethod}</p>
+              <span className="text-sm text-muted-foreground">결제수단</span>
+              <p className="text-sm font-medium text-foreground">{order.paymentMethod}</p>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Truck className="h-4 w-4" />
               배송 정보
             </CardTitle>
@@ -246,28 +246,28 @@ export default function OrderDetailClient({ id }: { id: string }) {
             {shippingAddr ? (
               <>
                 <div>
-                  <span className="text-sm text-gray-500">수령인</span>
-                  <p className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted-foreground">수령인</span>
+                  <p className="text-sm font-medium text-foreground">
                     {shippingAddr.name} ({shippingAddr.phone})
                   </p>
                 </div>
                 <div>
-                  <span className="text-sm text-gray-500">주소</span>
-                  <p className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted-foreground">주소</span>
+                  <p className="text-sm font-medium text-foreground">
                     [{shippingAddr.zipCode}] {shippingAddr.address1} {shippingAddr.address2}
                   </p>
                 </div>
               </>
             ) : (
-              <p className="text-sm text-gray-400">배송 정보 없음</p>
+              <p className="text-sm text-muted-foreground">배송 정보 없음</p>
             )}
             <div>
-              <span className="text-sm text-gray-500">택배사</span>
-              <p className="text-sm font-medium text-gray-900">{order.carrier ?? "-"}</p>
+              <span className="text-sm text-muted-foreground">택배사</span>
+              <p className="text-sm font-medium text-foreground">{order.carrier ?? "-"}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">운송장번호</span>
-              <p className="text-sm font-medium text-gray-900">{order.trackingNumber ?? "-"}</p>
+              <span className="text-sm text-muted-foreground">운송장번호</span>
+              <p className="text-sm font-medium text-foreground">{order.trackingNumber ?? "-"}</p>
             </div>
           </CardContent>
         </Card>
@@ -295,7 +295,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
               return (
                 <div key={event.id} className="relative flex gap-4 pb-6">
                   {!isLast && (
-                    <div className="absolute left-[9px] top-5 h-full w-px bg-gray-200" />
+                    <div className="absolute left-[9px] top-5 h-full w-px bg-border" />
                   )}
                   <div className="relative z-10 flex-shrink-0 pt-0.5">
                     <Circle
@@ -303,8 +303,8 @@ export default function OrderDetailClient({ id }: { id: string }) {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">{event.description}</p>
-                    <div className="mt-0.5 flex items-center gap-2 text-xs text-gray-500">
+                    <p className="text-sm font-medium text-foreground">{event.description}</p>
+                    <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
                       <span>{event.actor}</span>
                       <Separator orientation="vertical" className="h-3" />
                       <span>
@@ -343,7 +343,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
               <TableBody>
                 {order.items.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell className="font-medium text-gray-900">
+                    <TableCell className="font-medium text-foreground">
                       {THEME_NAMES[item.themeId]}
                     </TableCell>
                     <TableCell className="text-center">{item.quantity}권</TableCell>
@@ -363,7 +363,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
                           다운로드
                         </Button>
                       ) : (
-                        <span className="text-xs text-gray-400">파일 없음</span>
+                        <span className="text-xs text-muted-foreground">파일 없음</span>
                       )}
                     </TableCell>
                   </TableRow>
@@ -373,23 +373,23 @@ export default function OrderDetailClient({ id }: { id: string }) {
             <div className="mt-4 flex justify-end">
               <div className="w-64 space-y-1 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">소계</span>
-                  <span className="text-gray-900">{fmtWon(order.subtotal)}</span>
+                  <span className="text-muted-foreground">소계</span>
+                  <span className="text-foreground">{fmtWon(order.subtotal)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">배송비</span>
-                  <span className="text-gray-900">{fmtWon(order.shippingFee)}</span>
+                  <span className="text-muted-foreground">배송비</span>
+                  <span className="text-foreground">{fmtWon(order.shippingFee)}</span>
                 </div>
                 {order.discount > 0 && (
                   <div className="flex justify-between">
-                    <span className="text-gray-500">할인</span>
-                    <span className="text-red-600">-{fmtWon(order.discount)}</span>
+                    <span className="text-muted-foreground">할인</span>
+                    <span className="text-red-400">-{fmtWon(order.discount)}</span>
                   </div>
                 )}
                 <Separator className="my-2" />
                 <div className="flex justify-between font-bold">
-                  <span className="text-gray-900">합계</span>
-                  <span className="text-gray-900">{fmtWon(order.total)}</span>
+                  <span className="text-foreground">합계</span>
+                  <span className="text-foreground">{fmtWon(order.total)}</span>
                 </div>
               </div>
             </div>

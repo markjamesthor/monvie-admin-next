@@ -152,10 +152,10 @@ const teamMembers: TeamMember[] = [
 
 function getRoleBadge(role: TeamMember["role"], roleLabel: string) {
   const styles: Record<TeamMember["role"], string> = {
-    super_admin: "bg-red-100 text-red-700",
-    manager: "bg-blue-100 text-blue-700",
-    marketing: "bg-violet-100 text-violet-700",
-    operator: "bg-green-100 text-green-700",
+    super_admin: "bg-red-500/20 text-red-400",
+    manager: "bg-blue-500/20 text-blue-400",
+    marketing: "bg-violet-500/20 text-violet-400",
+    operator: "bg-green-500/20 text-green-400",
   };
   return <Badge className={styles[role]}>{roleLabel}</Badge>;
 }
@@ -186,8 +186,8 @@ export default function SettingsPage() {
     <div className="space-y-6 p-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">설정</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">설정</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           시스템 설정 및 운영 환경을 구성합니다.
         </p>
       </div>
@@ -198,7 +198,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Clock className="h-5 w-5 text-amber-600" />
+              <Clock className="h-5 w-5 text-amber-400" />
               <CardTitle>이탈 판정 규칙</CardTitle>
             </div>
             <CardDescription>
@@ -208,10 +208,10 @@ export default function SettingsPage() {
           <CardContent className="space-y-4">
             {rules.map((rule, index) => (
               <div key={rule.label}>
-                <label className="text-sm font-medium text-gray-700">
+                <label className="text-sm font-medium text-foreground/80">
                   {rule.label}
                 </label>
-                <p className="mb-1.5 text-xs text-gray-400">
+                <p className="mb-1.5 text-xs text-muted-foreground">
                   {rule.description}
                 </p>
                 <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export default function SettingsPage() {
                     onChange={(e) => handleRuleChange(index, e.target.value)}
                     className="w-24"
                   />
-                  <span className="text-sm text-gray-500">{rule.unit}</span>
+                  <span className="text-sm text-muted-foreground">{rule.unit}</span>
                 </div>
                 {index < rules.length - 1 && <Separator className="mt-4" />}
               </div>
@@ -237,7 +237,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-blue-600" />
+              <Mail className="h-5 w-5 text-blue-400" />
               <CardTitle>이메일 템플릿</CardTitle>
             </div>
             <CardDescription>
@@ -249,13 +249,13 @@ export default function SettingsPage() {
               <div key={template.id}>
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-foreground">
                       {template.name}
                     </p>
-                    <p className="mt-0.5 truncate text-xs text-gray-500">
+                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
                       {template.subject}
                     </p>
-                    <p className="mt-0.5 text-xs text-gray-400">
+                    <p className="mt-0.5 text-xs text-muted-foreground">
                       마지막 수정: {template.lastEdited}
                     </p>
                   </div>
@@ -276,7 +276,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Palette className="h-5 w-5 text-violet-600" />
+              <Palette className="h-5 w-5 text-violet-400" />
               <CardTitle>테마 관리</CardTitle>
             </div>
             <CardDescription>
@@ -291,17 +291,17 @@ export default function SettingsPage() {
                     <Badge
                       className={
                         theme.active
-                          ? "bg-violet-100 text-violet-700"
-                          : "bg-gray-100 text-gray-500"
+                          ? "bg-violet-500/20 text-violet-400"
+                          : "bg-muted text-muted-foreground"
                       }
                     >
                       {theme.code}
                     </Badge>
                     <div>
-                      <p className="text-sm font-medium text-gray-900">
+                      <p className="text-sm font-medium text-foreground">
                         {theme.name}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-muted-foreground">
                         {formatCurrency(theme.price)}
                       </p>
                     </div>
@@ -310,7 +310,7 @@ export default function SettingsPage() {
                     type="button"
                     onClick={() => handleThemeToggle(theme.id)}
                     className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out ${
-                      theme.active ? "bg-violet-600" : "bg-gray-200"
+                      theme.active ? "bg-violet-600" : "bg-muted"
                     }`}
                   >
                     <span
@@ -332,7 +332,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-green-600" />
+              <Users className="h-5 w-5 text-green-400" />
               <CardTitle>팀 계정</CardTitle>
             </div>
             <CardDescription>
@@ -344,17 +344,17 @@ export default function SettingsPage() {
               <div key={member.id}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-gray-600">
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground">
                       {member.name.charAt(0)}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium text-gray-900">
+                        <p className="text-sm font-medium text-foreground">
                           {member.name}
                         </p>
                         {getRoleBadge(member.role, member.roleLabel)}
                       </div>
-                      <p className="text-xs text-gray-500">{member.email}</p>
+                      <p className="text-xs text-muted-foreground">{member.email}</p>
                     </div>
                   </div>
                   <Button size="sm" variant="outline" className="gap-1">

@@ -86,8 +86,8 @@ export default function FunnelPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <TrendingUp className="h-6 w-6 text-violet-600" />
-          <h1 className="text-2xl font-bold text-gray-900">퍼널 분석</h1>
+          <TrendingUp className="h-6 w-6 text-violet-400" />
+          <h1 className="text-2xl font-bold text-foreground">퍼널 분석</h1>
         </div>
 
         {/* Period selector */}
@@ -124,12 +124,12 @@ export default function FunnelPage() {
             return (
               <div key={step.label} className="flex items-center gap-4">
                 {/* Step number */}
-                <span className="w-6 shrink-0 text-center text-xs font-bold text-gray-400">
+                <span className="w-6 shrink-0 text-center text-xs font-bold text-muted-foreground">
                   {idx + 1}
                 </span>
 
                 {/* Label */}
-                <span className="w-28 shrink-0 text-sm font-medium text-gray-700">
+                <span className="w-28 shrink-0 text-sm font-medium text-foreground/80">
                   {step.label}
                 </span>
 
@@ -142,12 +142,12 @@ export default function FunnelPage() {
                 </div>
 
                 {/* Count */}
-                <span className="w-16 shrink-0 text-right text-sm font-semibold text-gray-900">
+                <span className="w-16 shrink-0 text-right text-sm font-semibold text-foreground">
                   {step.count.toLocaleString()}
                 </span>
 
                 {/* Percentage */}
-                <span className="w-14 shrink-0 text-right text-sm text-gray-500">
+                <span className="w-14 shrink-0 text-right text-sm text-muted-foreground">
                   {step.percentage}%
                 </span>
 
@@ -167,20 +167,20 @@ export default function FunnelPage() {
       <div className="grid grid-cols-2 gap-4">
         <Card>
           <CardContent className="flex items-center justify-between py-5">
-            <span className="text-sm font-medium text-gray-600">
+            <span className="text-sm font-medium text-muted-foreground">
               전체 전환율
             </span>
-            <span className="text-2xl font-bold text-violet-600">
+            <span className="text-2xl font-bold text-violet-400">
               {overallConversion}%
             </span>
           </CardContent>
         </Card>
-        <Card className="border-violet-200 bg-violet-50">
+        <Card className="border-violet-500/30 bg-violet-500/10">
           <CardContent className="flex items-center justify-between py-5">
-            <span className="text-sm font-medium text-violet-700">
+            <span className="text-sm font-medium text-violet-400">
               사진업로드 → 결제 전환율
             </span>
-            <span className="text-2xl font-bold text-violet-700">
+            <span className="text-2xl font-bold text-violet-400">
               {photoToPayment}%
             </span>
           </CardContent>
@@ -207,33 +207,33 @@ export default function FunnelPage() {
             return (
               <div
                 key={step.label}
-                className="flex items-center justify-between rounded-lg border border-gray-100 p-4"
+                className="flex items-center justify-between rounded-lg border border-border p-4"
               >
                 <div className="flex items-center gap-3">
                   <Badge
                     variant="secondary"
                     className={
                       idx === 0
-                        ? "bg-red-100 text-red-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-red-500/20 text-red-400"
+                        : "bg-amber-500/20 text-amber-400"
                     }
                   >
                     {idx + 1}위
                   </Badge>
                   <div>
-                    <div className="text-sm font-semibold text-gray-900">
+                    <div className="text-sm font-semibold text-foreground">
                       {step.label} 단계 이전
                     </div>
-                    <div className="text-xs text-gray-400">
+                    <div className="text-xs text-muted-foreground">
                       이탈률 {dropoffRate}%
                     </div>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-lg font-bold text-red-600">
+                  <div className="text-lg font-bold text-red-400">
                     -{step.dropoff.toLocaleString()}명
                   </div>
-                  <div className="text-xs text-gray-400">이탈</div>
+                  <div className="text-xs text-muted-foreground">이탈</div>
                 </div>
               </div>
             );

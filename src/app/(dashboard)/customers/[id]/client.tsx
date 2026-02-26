@@ -37,11 +37,11 @@ const ORDER_STATUS_LABEL: Record<OrderStatus, string> = {
   delivered: "배송완료", cancelled: "취소", refunded: "환불",
 };
 const ORDER_STATUS_COLOR: Record<OrderStatus, string> = {
-  paid: "bg-blue-100 text-blue-700", preparing: "bg-amber-100 text-amber-700",
-  in_production: "bg-amber-100 text-amber-700", quality_check: "bg-amber-100 text-amber-700",
-  packing: "bg-amber-100 text-amber-700", shipped: "bg-teal-100 text-teal-700",
-  delivered: "bg-green-100 text-green-700", cancelled: "bg-red-100 text-red-700",
-  refunded: "bg-red-100 text-red-700",
+  paid: "bg-blue-500/20 text-blue-400", preparing: "bg-amber-500/20 text-amber-400",
+  in_production: "bg-amber-500/20 text-amber-400", quality_check: "bg-amber-500/20 text-amber-400",
+  packing: "bg-amber-500/20 text-amber-400", shipped: "bg-teal-500/20 text-teal-400",
+  delivered: "bg-green-500/20 text-green-400", cancelled: "bg-red-500/20 text-red-400",
+  refunded: "bg-red-500/20 text-red-400",
 };
 
 const SESSION_STATUS_LABEL: Record<DesignSessionStatus, string> = {
@@ -49,9 +49,9 @@ const SESSION_STATUS_LABEL: Record<DesignSessionStatus, string> = {
   completed: "완료", converted: "전환됨",
 };
 const SESSION_STATUS_COLOR: Record<DesignSessionStatus, string> = {
-  started: "bg-yellow-100 text-yellow-700", in_progress: "bg-yellow-100 text-yellow-700",
-  abandoned: "bg-red-100 text-red-700", completed: "bg-green-100 text-green-700",
-  converted: "bg-blue-100 text-blue-700",
+  started: "bg-yellow-500/20 text-yellow-400", in_progress: "bg-yellow-500/20 text-yellow-400",
+  abandoned: "bg-red-500/20 text-red-400", completed: "bg-green-500/20 text-green-400",
+  converted: "bg-blue-500/20 text-blue-400",
 };
 
 const CART_STATUS_LABEL: Record<CartItemStatus, string> = {
@@ -59,9 +59,9 @@ const CART_STATUS_LABEL: Record<CartItemStatus, string> = {
   abandoned: "이탈", removed: "삭제됨",
 };
 const CART_STATUS_COLOR: Record<CartItemStatus, string> = {
-  active: "bg-blue-100 text-blue-700", checkout: "bg-amber-100 text-amber-700",
-  purchased: "bg-green-100 text-green-700", abandoned: "bg-red-100 text-red-700",
-  removed: "bg-gray-100 text-gray-700",
+  active: "bg-blue-500/20 text-blue-400", checkout: "bg-amber-500/20 text-amber-400",
+  purchased: "bg-green-500/20 text-green-400", abandoned: "bg-red-500/20 text-red-400",
+  removed: "bg-muted text-foreground/80",
 };
 
 type Segment = "VIP" | "신규" | "이탈위험" | "일반";
@@ -77,10 +77,10 @@ function getSegment(customer: (typeof MOCK_CUSTOMERS)[number]): Segment {
 }
 
 const SEGMENT_CONFIG: Record<Segment, { color: string; icon: React.ReactNode }> = {
-  VIP: { color: "bg-violet-100 text-violet-700", icon: <Crown className="h-3.5 w-3.5" /> },
-  신규: { color: "bg-green-100 text-green-700", icon: <UserPlus className="h-3.5 w-3.5" /> },
-  이탈위험: { color: "bg-red-100 text-red-700", icon: <AlertTriangle className="h-3.5 w-3.5" /> },
-  일반: { color: "bg-gray-100 text-gray-700", icon: <User className="h-3.5 w-3.5" /> },
+  VIP: { color: "bg-violet-500/20 text-violet-400", icon: <Crown className="h-3.5 w-3.5" /> },
+  신규: { color: "bg-green-500/20 text-green-400", icon: <UserPlus className="h-3.5 w-3.5" /> },
+  이탈위험: { color: "bg-red-500/20 text-red-400", icon: <AlertTriangle className="h-3.5 w-3.5" /> },
+  일반: { color: "bg-muted text-foreground/80", icon: <User className="h-3.5 w-3.5" /> },
 };
 
 function formatDate(dateStr: string): string {
@@ -107,7 +107,7 @@ export default function CustomerDetailClient({ id }: { id: string }) {
   if (!customer) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-12">
-        <p className="text-lg text-gray-500">존재하지 않는 항목입니다.</p>
+        <p className="text-lg text-muted-foreground">존재하지 않는 항목입니다.</p>
         <Button variant="outline" asChild>
           <Link href="/customers">
             <ArrowLeft className="mr-1 h-4 w-4" />
@@ -133,8 +133,8 @@ export default function CustomerDetailClient({ id }: { id: string }) {
           <Link href="/customers"><ArrowLeft className="h-4 w-4" /></Link>
         </Button>
         <div className="flex items-center gap-3">
-          <User className="h-6 w-6 text-violet-600" />
-          <h1 className="text-2xl font-bold text-gray-900">{customer.name}</h1>
+          <User className="h-6 w-6 text-violet-400" />
+          <h1 className="text-2xl font-bold text-foreground">{customer.name}</h1>
           <Badge variant="secondary" className={segmentCfg.color}>
             {segmentCfg.icon}
             <span className="ml-1">{segment}</span>
@@ -145,51 +145,51 @@ export default function CustomerDetailClient({ id }: { id: string }) {
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <User className="h-4 w-4" /> 기본 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div><span className="text-sm text-gray-500">이메일</span><p className="text-sm font-medium text-gray-900">{customer.email}</p></div>
-            <div><span className="text-sm text-gray-500">전화번호</span><p className="text-sm font-medium text-gray-900">{customer.phone}</p></div>
-            <div><span className="text-sm text-gray-500">국가</span><p className="text-sm font-medium text-gray-900">{customer.country}</p></div>
-            <div><span className="text-sm text-gray-500">가입일</span><p className="text-sm font-medium text-gray-900">{formatDate(customer.createdAt)}</p></div>
+            <div><span className="text-sm text-muted-foreground">이메일</span><p className="text-sm font-medium text-foreground">{customer.email}</p></div>
+            <div><span className="text-sm text-muted-foreground">전화번호</span><p className="text-sm font-medium text-foreground">{customer.phone}</p></div>
+            <div><span className="text-sm text-muted-foreground">국가</span><p className="text-sm font-medium text-foreground">{customer.country}</p></div>
+            <div><span className="text-sm text-muted-foreground">가입일</span><p className="text-sm font-medium text-foreground">{formatDate(customer.createdAt)}</p></div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <ShoppingBag className="h-4 w-4" /> 구매 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div><span className="text-sm text-gray-500">총 주문수</span><p className="text-sm font-medium text-gray-900">{customer.totalOrders}건</p></div>
-            <div><span className="text-sm text-gray-500">총 지출액</span><p className="text-sm font-bold text-gray-900">{fmtWon(customer.totalSpent)}</p></div>
-            <div><span className="text-sm text-gray-500">평균 주문 금액</span><p className="text-sm font-medium text-gray-900">{fmtWon(avgOrderValue)}</p></div>
+            <div><span className="text-sm text-muted-foreground">총 주문수</span><p className="text-sm font-medium text-foreground">{customer.totalOrders}건</p></div>
+            <div><span className="text-sm text-muted-foreground">총 지출액</span><p className="text-sm font-bold text-foreground">{fmtWon(customer.totalSpent)}</p></div>
+            <div><span className="text-sm text-muted-foreground">평균 주문 금액</span><p className="text-sm font-medium text-foreground">{fmtWon(avgOrderValue)}</p></div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Activity className="h-4 w-4" /> 활동 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div><span className="text-sm text-gray-500">마지막 활동</span><p className="text-sm font-medium text-gray-900">{formatRelativeTime(customer.lastActivityAt)}</p></div>
-            <div><span className="text-sm text-gray-500">가입 기간</span><p className="text-sm font-medium text-gray-900">{memberDays}일</p></div>
+            <div><span className="text-sm text-muted-foreground">마지막 활동</span><p className="text-sm font-medium text-foreground">{formatRelativeTime(customer.lastActivityAt)}</p></div>
+            <div><span className="text-sm text-muted-foreground">가입 기간</span><p className="text-sm font-medium text-foreground">{memberDays}일</p></div>
           </CardContent>
         </Card>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">주문 내역 <span className="ml-2 text-sm font-normal text-gray-400">{customerOrders.length}건</span></CardTitle>
+          <CardTitle className="text-base">주문 내역 <span className="ml-2 text-sm font-normal text-muted-foreground">{customerOrders.length}건</span></CardTitle>
         </CardHeader>
         <CardContent>
           {customerOrders.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-400">주문 내역이 없습니다.</p>
+            <p className="py-8 text-center text-sm text-muted-foreground">주문 내역이 없습니다.</p>
           ) : (
             <Table>
               <TableHeader>
@@ -204,9 +204,9 @@ export default function CustomerDetailClient({ id }: { id: string }) {
               <TableBody>
                 {customerOrders.map((order) => (
                   <TableRow key={order.id}>
-                    <TableCell className="font-medium text-gray-900">{order.orderNumber}</TableCell>
-                    <TableCell className="text-sm text-gray-500">{formatDateTime(order.createdAt)}</TableCell>
-                    <TableCell className="text-right font-semibold text-gray-900">{fmtWon(order.total)}</TableCell>
+                    <TableCell className="font-medium text-foreground">{order.orderNumber}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{formatDateTime(order.createdAt)}</TableCell>
+                    <TableCell className="text-right font-semibold text-foreground">{fmtWon(order.total)}</TableCell>
                     <TableCell>
                       <Badge variant="secondary" className={ORDER_STATUS_COLOR[order.status]}>
                         {ORDER_STATUS_LABEL[order.status]}
@@ -227,11 +227,11 @@ export default function CustomerDetailClient({ id }: { id: string }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">디자인 세션 <span className="ml-2 text-sm font-normal text-gray-400">{customerSessions.length}건</span></CardTitle>
+          <CardTitle className="text-base">디자인 세션 <span className="ml-2 text-sm font-normal text-muted-foreground">{customerSessions.length}건</span></CardTitle>
         </CardHeader>
         <CardContent>
           {customerSessions.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-400">디자인 세션이 없습니다.</p>
+            <p className="py-8 text-center text-sm text-muted-foreground">디자인 세션이 없습니다.</p>
           ) : (
             <Table>
               <TableHeader>
@@ -246,14 +246,14 @@ export default function CustomerDetailClient({ id }: { id: string }) {
               <TableBody>
                 {customerSessions.map((session) => (
                   <TableRow key={session.id}>
-                    <TableCell className="font-medium text-gray-900">{THEME_NAMES[session.themeId]}</TableCell>
+                    <TableCell className="font-medium text-foreground">{THEME_NAMES[session.themeId]}</TableCell>
                     <TableCell>
                       <Badge variant="secondary" className={SESSION_STATUS_COLOR[session.status]}>
                         {SESSION_STATUS_LABEL[session.status]}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-center text-sm text-gray-700">{session.photoCount}장</TableCell>
-                    <TableCell className="text-sm text-gray-500">{formatDateTime(session.createdAt)}</TableCell>
+                    <TableCell className="text-center text-sm text-foreground/80">{session.photoCount}장</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{formatDateTime(session.createdAt)}</TableCell>
                     <TableCell className="text-center">
                       <Button variant="outline" size="xs" asChild>
                         <Link href={`/design-sessions/${session.id}`}>상세</Link>
@@ -269,11 +269,11 @@ export default function CustomerDetailClient({ id }: { id: string }) {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">장바구니 항목 <span className="ml-2 text-sm font-normal text-gray-400">{customerCartItems.length}건</span></CardTitle>
+          <CardTitle className="text-base">장바구니 항목 <span className="ml-2 text-sm font-normal text-muted-foreground">{customerCartItems.length}건</span></CardTitle>
         </CardHeader>
         <CardContent>
           {customerCartItems.length === 0 ? (
-            <p className="py-8 text-center text-sm text-gray-400">장바구니 항목이 없습니다.</p>
+            <p className="py-8 text-center text-sm text-muted-foreground">장바구니 항목이 없습니다.</p>
           ) : (
             <Table>
               <TableHeader>
@@ -288,15 +288,15 @@ export default function CustomerDetailClient({ id }: { id: string }) {
               <TableBody>
                 {customerCartItems.map((item) => (
                   <TableRow key={item.id}>
-                    <TableCell className="font-medium text-gray-900">{THEME_NAMES[item.themeId]}</TableCell>
-                    <TableCell className="text-center text-sm text-gray-700">{item.quantity}권</TableCell>
-                    <TableCell className="text-right font-semibold text-gray-900">{fmtWon(item.unitPrice)}</TableCell>
+                    <TableCell className="font-medium text-foreground">{THEME_NAMES[item.themeId]}</TableCell>
+                    <TableCell className="text-center text-sm text-foreground/80">{item.quantity}권</TableCell>
+                    <TableCell className="text-right font-semibold text-foreground">{fmtWon(item.unitPrice)}</TableCell>
                     <TableCell>
                       <Badge variant="secondary" className={CART_STATUS_COLOR[item.status]}>
                         {CART_STATUS_LABEL[item.status]}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-sm text-gray-500">{formatDateTime(item.addedAt)}</TableCell>
+                    <TableCell className="text-sm text-muted-foreground">{formatDateTime(item.addedAt)}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

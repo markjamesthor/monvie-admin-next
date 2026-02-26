@@ -26,11 +26,11 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const STATUS_CONFIG: Record<DesignSessionStatus, { label: string; color: string }> = {
-  started: { label: "시작됨", color: "bg-yellow-100 text-yellow-700" },
-  in_progress: { label: "진행중", color: "bg-yellow-100 text-yellow-700" },
-  abandoned: { label: "이탈", color: "bg-red-100 text-red-700" },
-  completed: { label: "완료", color: "bg-green-100 text-green-700" },
-  converted: { label: "전환됨", color: "bg-blue-100 text-blue-700" },
+  started: { label: "시작됨", color: "bg-yellow-500/20 text-yellow-400" },
+  in_progress: { label: "진행중", color: "bg-yellow-500/20 text-yellow-400" },
+  abandoned: { label: "이탈", color: "bg-red-500/20 text-red-400" },
+  completed: { label: "완료", color: "bg-green-500/20 text-green-400" },
+  converted: { label: "전환됨", color: "bg-blue-500/20 text-blue-400" },
 };
 
 function formatEditTime(seconds: number): string {
@@ -94,7 +94,7 @@ function buildTimeline(session: (typeof MOCK_DESIGN_SESSIONS)[number]): Timeline
     icon: <MousePointerClick className="h-3.5 w-3.5" />,
     label: `마지막 활동: ${session.lastAction}`,
     time: session.lastActivityAt,
-    dotColor: "text-gray-500",
+    dotColor: "text-muted-foreground",
   });
 
   if (session.abandonedAt) {
@@ -126,7 +126,7 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
   if (!session) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-12">
-        <p className="text-lg text-gray-500">존재하지 않는 항목입니다.</p>
+        <p className="text-lg text-muted-foreground">존재하지 않는 항목입니다.</p>
         <Button variant="outline" asChild>
           <Link href="/design-sessions">
             <ArrowLeft className="mr-1 h-4 w-4" />
@@ -150,8 +150,8 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
           </Link>
         </Button>
         <div className="flex items-center gap-3">
-          <Palette className="h-6 w-6 text-violet-600" />
-          <h1 className="text-2xl font-bold text-gray-900">{session.id}</h1>
+          <Palette className="h-6 w-6 text-violet-400" />
+          <h1 className="text-2xl font-bold text-foreground">{session.id}</h1>
           <Badge variant="secondary" className={cfg.color}>
             {cfg.label}
           </Badge>
@@ -161,17 +161,17 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <User className="h-4 w-4" />
               고객 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div>
-              <span className="text-sm text-gray-500">고객명</span>
-              <p className="text-sm font-medium text-gray-900">
+              <span className="text-sm text-muted-foreground">고객명</span>
+              <p className="text-sm font-medium text-foreground">
                 {customer ? (
-                  <Link href={`/customers/${customer.id}`} className="text-violet-600 hover:underline">
+                  <Link href={`/customers/${customer.id}`} className="text-violet-400 hover:underline">
                     {session.customerName}
                   </Link>
                 ) : (
@@ -180,42 +180,42 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
               </p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">세션 시작</span>
-              <p className="text-sm font-medium text-gray-900">{formatDateTime(session.createdAt)}</p>
+              <span className="text-sm text-muted-foreground">세션 시작</span>
+              <p className="text-sm font-medium text-foreground">{formatDateTime(session.createdAt)}</p>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Palette className="h-4 w-4" />
               디자인 정보
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div>
-              <span className="text-sm text-gray-500">테마</span>
-              <p className="text-sm font-medium text-gray-900">{THEME_NAMES[session.themeId]}</p>
+              <span className="text-sm text-muted-foreground">테마</span>
+              <p className="text-sm font-medium text-foreground">{THEME_NAMES[session.themeId]}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">사진 수</span>
-              <p className="text-sm font-medium text-gray-900">{session.photoCount}장</p>
+              <span className="text-sm text-muted-foreground">사진 수</span>
+              <p className="text-sm font-medium text-foreground">{session.photoCount}장</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">커스텀 텍스트</span>
-              <p className="text-sm font-medium text-gray-900">{session.hasCustomText ? "예" : "아니오"}</p>
+              <span className="text-sm text-muted-foreground">커스텀 텍스트</span>
+              <p className="text-sm font-medium text-foreground">{session.hasCustomText ? "예" : "아니오"}</p>
             </div>
             <div>
-              <span className="text-sm text-gray-500">총 편집 시간</span>
-              <p className="text-sm font-medium text-gray-900">{formatEditTime(session.totalEditTimeSeconds)}</p>
+              <span className="text-sm text-muted-foreground">총 편집 시간</span>
+              <p className="text-sm font-medium text-foreground">{formatEditTime(session.totalEditTimeSeconds)}</p>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-gray-600">
+            <CardTitle className="flex items-center gap-2 text-sm font-semibold text-muted-foreground">
               <Clock className="h-4 w-4" />
               {session.status === "abandoned" ? "리커버리 정보" : "활동 정보"}
             </CardTitle>
@@ -224,18 +224,18 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
             {session.status === "abandoned" ? (
               <>
                 <div>
-                  <span className="text-sm text-gray-500">이탈 시각</span>
-                  <p className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted-foreground">이탈 시각</span>
+                  <p className="text-sm font-medium text-foreground">
                     {session.abandonedAt ? formatDateTime(session.abandonedAt) : "-"}
                   </p>
                 </div>
                 <div>
-                  <span className="text-sm text-gray-500">리커버리 이메일 발송</span>
-                  <p className="text-sm font-medium text-gray-900">{session.recoveryEmailCount}회</p>
+                  <span className="text-sm text-muted-foreground">리커버리 이메일 발송</span>
+                  <p className="text-sm font-medium text-foreground">{session.recoveryEmailCount}회</p>
                 </div>
                 <div>
-                  <span className="text-sm text-gray-500">마지막 발송 시각</span>
-                  <p className="text-sm font-medium text-gray-900">
+                  <span className="text-sm text-muted-foreground">마지막 발송 시각</span>
+                  <p className="text-sm font-medium text-foreground">
                     {session.recoveryEmailSentAt ? formatDateTime(session.recoveryEmailSentAt) : "-"}
                   </p>
                 </div>
@@ -243,12 +243,12 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
             ) : (
               <>
                 <div>
-                  <span className="text-sm text-gray-500">마지막 활동</span>
-                  <p className="text-sm font-medium text-gray-900">{formatDateTime(session.lastActivityAt)}</p>
+                  <span className="text-sm text-muted-foreground">마지막 활동</span>
+                  <p className="text-sm font-medium text-foreground">{formatDateTime(session.lastActivityAt)}</p>
                 </div>
                 <div>
-                  <span className="text-sm text-gray-500">마지막 액션</span>
-                  <p className="text-sm font-medium text-gray-900">{session.lastAction}</p>
+                  <span className="text-sm text-muted-foreground">마지막 액션</span>
+                  <p className="text-sm font-medium text-foreground">{session.lastAction}</p>
                 </div>
               </>
             )}
@@ -262,14 +262,14 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
         </CardHeader>
         <CardContent>
           {session.previewUrl ? (
-            <div className="overflow-hidden rounded-lg border border-gray-200">
+            <div className="overflow-hidden rounded-lg border border-border">
               <img src={session.previewUrl} alt="디자인 미리보기" className="h-64 w-full object-cover" />
             </div>
           ) : (
-            <div className="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-gray-200 bg-gray-50">
+            <div className="flex h-64 items-center justify-center rounded-lg border-2 border-dashed border-border bg-muted/50">
               <div className="text-center">
-                <Image className="mx-auto h-10 w-10 text-gray-300" />
-                <p className="mt-2 text-sm text-gray-400">미리보기 이미지가 없습니다</p>
+                <Image className="mx-auto h-10 w-10 text-muted-foreground/50" />
+                <p className="mt-2 text-sm text-muted-foreground">미리보기 이미지가 없습니다</p>
               </div>
             </div>
           )}
@@ -287,18 +287,18 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
               return (
                 <div key={event.id} className="relative flex gap-4 pb-6">
                   {!isLast && (
-                    <div className="absolute left-[9px] top-5 h-full w-px bg-gray-200" />
+                    <div className="absolute left-[9px] top-5 h-full w-px bg-border" />
                   )}
                   <div className="relative z-10 flex-shrink-0 pt-0.5">
                     <Circle className={`h-[18px] w-[18px] fill-current ${event.dotColor}`} />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">{event.icon}</span>
-                      <p className="text-sm font-medium text-gray-900">{event.label}</p>
+                      <span className="text-muted-foreground">{event.icon}</span>
+                      <p className="text-sm font-medium text-foreground">{event.label}</p>
                     </div>
                     {event.time && (
-                      <p className="mt-0.5 text-xs text-gray-500">{formatDateTime(event.time)}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{formatDateTime(event.time)}</p>
                     )}
                   </div>
                 </div>
@@ -310,7 +310,7 @@ export default function DesignSessionDetailClient({ id }: { id: string }) {
 
       <div className="flex gap-3">
         {session.status === "abandoned" && (
-          <Button variant="outline" size="sm" className="border-red-200 text-red-600 hover:bg-red-50">
+          <Button variant="outline" size="sm" className="border-red-500/30 text-red-400 hover:bg-red-500/10">
             <Mail className="mr-1 h-4 w-4" />
             리커버리 이메일 발송
           </Button>

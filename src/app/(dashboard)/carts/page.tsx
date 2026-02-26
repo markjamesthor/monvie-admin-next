@@ -156,37 +156,37 @@ const stats = [
     label: "활성 장바구니",
     value: 24,
     icon: ShoppingCart,
-    color: "text-blue-600",
-    bg: "bg-blue-100",
+    color: "text-blue-400",
+    bg: "bg-blue-500/10",
   },
   {
     label: "이탈 장바구니",
     value: 18,
     icon: AlertCircle,
-    color: "text-red-600",
-    bg: "bg-red-100",
+    color: "text-red-400",
+    bg: "bg-red-500/10",
   },
   {
     label: "오늘 전환",
     value: 7,
     icon: TrendingUp,
-    color: "text-green-600",
-    bg: "bg-green-100",
+    color: "text-green-400",
+    bg: "bg-green-500/10",
   },
   {
     label: "평균 이탈시간",
     value: "2.4시간",
     icon: Clock,
-    color: "text-amber-600",
-    bg: "bg-amber-100",
+    color: "text-amber-400",
+    bg: "bg-amber-500/10",
   },
 ];
 
 function getStatusBadge(status: CartStatus) {
   const styles: Record<CartStatus, string> = {
-    활성: "bg-green-100 text-green-700",
-    이탈: "bg-red-100 text-red-700",
-    구매완료: "bg-blue-100 text-blue-700",
+    활성: "bg-green-500/20 text-green-400",
+    이탈: "bg-red-500/20 text-red-400",
+    구매완료: "bg-blue-500/20 text-blue-400",
   };
   return <Badge className={styles[status]}>{status}</Badge>;
 }
@@ -218,8 +218,8 @@ export default function CartsPage() {
     <div className="space-y-6 p-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">장바구니 관리</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">장바구니 관리</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           장바구니 현황 및 이탈 고객 관리를 진행합니다.
         </p>
       </div>
@@ -235,8 +235,8 @@ export default function CartsPage() {
                   <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {stat.value}
                   </p>
                 </div>
@@ -254,7 +254,7 @@ export default function CartsPage() {
         <CardContent className="space-y-4">
           {/* Search */}
           <div className="relative max-w-sm">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="고객명 또는 테마 검색..."
               className="pl-9"
@@ -287,19 +287,19 @@ export default function CartsPage() {
                 <TableBody>
                   {filteredCarts.map((cart) => (
                     <TableRow key={cart.id}>
-                      <TableCell className="font-medium text-gray-900">
+                      <TableCell className="font-medium text-foreground">
                         {cart.customerName}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-700">
+                      <TableCell className="text-sm text-foreground/80">
                         {cart.theme}
                       </TableCell>
                       <TableCell className="text-right font-medium">
                         {formatCurrency(cart.amount)}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {cart.addedAt}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {cart.elapsed}
                       </TableCell>
                       <TableCell>{getStatusBadge(cart.status)}</TableCell>
@@ -308,17 +308,17 @@ export default function CartsPage() {
                           <Button
                             size="sm"
                             variant="outline"
-                            className="gap-1 text-violet-600 border-violet-200 hover:bg-violet-50"
+                            className="gap-1 text-violet-400 border-violet-500/30 hover:bg-violet-500/10"
                           >
                             <Mail className="h-3.5 w-3.5" />
                             리커버리
                           </Button>
                         )}
                         {cart.status === "활성" && (
-                          <span className="text-xs text-gray-400">대기중</span>
+                          <span className="text-xs text-muted-foreground">대기중</span>
                         )}
                         {cart.status === "구매완료" && (
-                          <span className="text-xs text-green-600">전환됨</span>
+                          <span className="text-xs text-green-400">전환됨</span>
                         )}
                       </TableCell>
                     </TableRow>

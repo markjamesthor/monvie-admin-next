@@ -183,38 +183,38 @@ const stats = [
     label: "전체 고객",
     value: "1,247",
     icon: Users,
-    color: "text-blue-600",
-    bg: "bg-blue-100",
+    color: "text-blue-400",
+    bg: "bg-blue-500/20",
   },
   {
     label: "VIP (재구매)",
     value: 89,
     icon: Crown,
-    color: "text-violet-600",
-    bg: "bg-violet-100",
+    color: "text-violet-400",
+    bg: "bg-violet-500/20",
   },
   {
     label: "신규 (7일)",
     value: 34,
     icon: UserPlus,
-    color: "text-green-600",
-    bg: "bg-green-100",
+    color: "text-green-400",
+    bg: "bg-green-500/20",
   },
   {
     label: "이탈위험",
     value: 23,
     icon: AlertTriangle,
-    color: "text-red-600",
-    bg: "bg-red-100",
+    color: "text-red-400",
+    bg: "bg-red-500/20",
   },
 ];
 
 function getSegmentBadge(segment: Segment) {
   const styles: Record<Segment, string> = {
-    VIP: "bg-violet-100 text-violet-700",
-    신규: "bg-green-100 text-green-700",
-    일반: "bg-gray-100 text-gray-700",
-    이탈위험: "bg-red-100 text-red-700",
+    VIP: "bg-violet-500/20 text-violet-400",
+    신규: "bg-green-500/20 text-green-400",
+    일반: "bg-muted text-foreground/80",
+    이탈위험: "bg-red-500/20 text-red-400",
   };
   return <Badge className={styles[segment]}>{segment}</Badge>;
 }
@@ -241,8 +241,8 @@ export default function CustomersPage() {
     <div className="space-y-6 p-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">고객 관리</h1>
-        <p className="mt-1 text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-foreground">고객 관리</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
           고객 세그먼트별 관리 및 활동 내역을 확인합니다.
         </p>
       </div>
@@ -258,8 +258,8 @@ export default function CustomersPage() {
                   <Icon className={`h-5 w-5 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">
+                  <p className="text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="text-2xl font-bold text-foreground">
                     {stat.value}
                   </p>
                 </div>
@@ -277,7 +277,7 @@ export default function CustomersPage() {
         <CardContent className="space-y-4">
           {/* Search */}
           <div className="relative max-w-sm">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
               placeholder="고객명 또는 이메일 검색..."
               className="pl-9"
@@ -311,10 +311,10 @@ export default function CustomersPage() {
                 <TableBody>
                   {filteredCustomers.map((customer) => (
                     <TableRow key={customer.id}>
-                      <TableCell className="font-medium text-gray-900">
+                      <TableCell className="font-medium text-foreground">
                         {customer.name}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {customer.email}
                       </TableCell>
                       <TableCell className="text-center">
@@ -323,7 +323,7 @@ export default function CustomersPage() {
                       <TableCell className="text-right font-medium">
                         {formatCurrency(customer.totalSpent)}
                       </TableCell>
-                      <TableCell className="text-sm text-gray-500">
+                      <TableCell className="text-sm text-muted-foreground">
                         {customer.lastActivity}
                       </TableCell>
                       <TableCell>

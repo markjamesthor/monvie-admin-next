@@ -1742,13 +1742,20 @@ export const MOCK_WEEKLY_REVENUE: RevenueDataPoint[] = [
 // 9월 1.6억 -> 10월 2.2억 -> 11월 2.8억 -> 12월 3.7억 -> 1월 4.5억 -> 2월 5.2억
 // -----------------------------------------------------------------------------
 
-export const MOCK_MONTHLY_REVENUE: (RevenueDataPoint & { grossProfit: number; month: string })[] = [
-  { date: '2025-09', month: '9월', revenue: 160000000, grossProfit: 88000000, orders: 3200 },
-  { date: '2025-10', month: '10월', revenue: 220000000, grossProfit: 121000000, orders: 4400 },
-  { date: '2025-11', month: '11월', revenue: 280000000, grossProfit: 154000000, orders: 5600 },
-  { date: '2025-12', month: '12월', revenue: 370000000, grossProfit: 203500000, orders: 7400 },
-  { date: '2026-01', month: '1월', revenue: 450000000, grossProfit: 247500000, orders: 9000 },
-  { date: '2026-02', month: '2월', revenue: 520000000, grossProfit: 286000000, orders: 10400 },
+export const MOCK_MONTHLY_REVENUE: (RevenueDataPoint & {
+  grossProfit: number;
+  operatingProfit: number;
+  month: string;
+  marketing: number;
+  fixedCosts: number;
+  operatingMargin: number;
+})[] = [
+  { date: '2025-09', month: '9월', revenue: 160000000, grossProfit: 88000000, marketing: 40000000, fixedCosts: 23000000, operatingProfit: 25000000, operatingMargin: 15.6, orders: 3200 },
+  { date: '2025-10', month: '10월', revenue: 220000000, grossProfit: 121000000, marketing: 52800000, fixedCosts: 23000000, operatingProfit: 45200000, operatingMargin: 20.5, orders: 4400 },
+  { date: '2025-11', month: '11월', revenue: 280000000, grossProfit: 154000000, marketing: 64400000, fixedCosts: 23000000, operatingProfit: 66600000, operatingMargin: 23.8, orders: 5600 },
+  { date: '2025-12', month: '12월', revenue: 370000000, grossProfit: 203500000, marketing: 77700000, fixedCosts: 23000000, operatingProfit: 102800000, operatingMargin: 27.8, orders: 7400 },
+  { date: '2026-01', month: '1월', revenue: 450000000, grossProfit: 247500000, marketing: 90000000, fixedCosts: 23000000, operatingProfit: 134500000, operatingMargin: 29.9, orders: 9000 },
+  { date: '2026-02', month: '2월', revenue: 520000000, grossProfit: 286000000, marketing: 98800000, fixedCosts: 23000000, operatingProfit: 164200000, operatingMargin: 31.6, orders: 10400 },
 ];
 
 // -----------------------------------------------------------------------------
@@ -2029,4 +2036,196 @@ export const MOCK_ORDER_TIMELINE: Record<string, OrderTimelineEvent[]> = {
   'ord-019': [
     { id: 'tl-012', orderId: 'ord-019', action: 'payment_completed', description: '결제 완료 (카카오페이)', actor: '시스템', createdAt: '2026-02-26T09:00:00Z' },
   ],
+};
+
+// -----------------------------------------------------------------------------
+// MOCK_FINANCIAL_DATA - Monthly P&L (Profit & Loss)
+// Operating Profit = Gross Profit - Marketing - Fixed OpEx (23M/month)
+// Fixed OpEx: 인건비+4대보험 18M + 인프라 2M + 사무실 1.5M + SaaS+기타 1.5M = 23M
+// Marketing scales down from 25% to 19% as volume grows
+// -----------------------------------------------------------------------------
+
+export interface MonthlyPnL {
+  month: string;
+  revenue: number;
+  cogs: number;
+  grossProfit: number;
+  grossMargin: number;
+  marketing: number;
+  personnel: number;
+  infrastructure: number;
+  office: number;
+  otherOpex: number;
+  totalOpex: number;
+  operatingProfit: number;
+  operatingMargin: number;
+  orders: number;
+  revenuePerEmployee: number;
+  profitPerEmployee: number;
+}
+
+export const MOCK_FINANCIAL_DATA: MonthlyPnL[] = [
+  {
+    month: '9월',
+    revenue: 160000000,
+    cogs: 72000000,       // 45% of 160M
+    grossProfit: 88000000,
+    grossMargin: 55,
+    marketing: 40000000,  // 25%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 63000000,  // marketing + fixed
+    operatingProfit: 25000000,
+    operatingMargin: 15.6,
+    orders: 3200,
+    revenuePerEmployee: 32000000,   // 160M / 5
+    profitPerEmployee: 5000000,     // 25M / 5
+  },
+  {
+    month: '10월',
+    revenue: 220000000,
+    cogs: 99000000,
+    grossProfit: 121000000,
+    grossMargin: 55,
+    marketing: 52800000,  // 24%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 75800000,
+    operatingProfit: 45200000,
+    operatingMargin: 20.5,
+    orders: 4400,
+    revenuePerEmployee: 44000000,
+    profitPerEmployee: 9040000,
+  },
+  {
+    month: '11월',
+    revenue: 280000000,
+    cogs: 126000000,
+    grossProfit: 154000000,
+    grossMargin: 55,
+    marketing: 64400000,  // 23%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 87400000,
+    operatingProfit: 66600000,
+    operatingMargin: 23.8,
+    orders: 5600,
+    revenuePerEmployee: 56000000,
+    profitPerEmployee: 13320000,
+  },
+  {
+    month: '12월',
+    revenue: 370000000,
+    cogs: 166500000,
+    grossProfit: 203500000,
+    grossMargin: 55,
+    marketing: 77700000,  // 21%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 100700000,
+    operatingProfit: 102800000,
+    operatingMargin: 27.8,
+    orders: 7400,
+    revenuePerEmployee: 74000000,
+    profitPerEmployee: 20560000,
+  },
+  {
+    month: '1월',
+    revenue: 450000000,
+    cogs: 202500000,
+    grossProfit: 247500000,
+    grossMargin: 55,
+    marketing: 90000000,  // 20%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 113000000,
+    operatingProfit: 134500000,
+    operatingMargin: 29.9,
+    orders: 9000,
+    revenuePerEmployee: 90000000,
+    profitPerEmployee: 26900000,
+  },
+  {
+    month: '2월',
+    revenue: 520000000,
+    cogs: 234000000,
+    grossProfit: 286000000,
+    grossMargin: 55,
+    marketing: 98800000,  // 19%
+    personnel: 18000000,
+    infrastructure: 2000000,
+    office: 1500000,
+    otherOpex: 1500000,
+    totalOpex: 121800000,
+    operatingProfit: 164200000,
+    operatingMargin: 31.6,
+    orders: 10400,
+    revenuePerEmployee: 104000000,
+    profitPerEmployee: 32840000,
+  },
+];
+
+// -----------------------------------------------------------------------------
+// MOCK_UNIT_ECONOMICS - Per-book economics
+// Selling price 50,000원, variable cost 26,000원, contribution margin 24,000원
+// -----------------------------------------------------------------------------
+
+export const MOCK_UNIT_ECONOMICS = {
+  sellingPrice: 50000,
+  variableCosts: {
+    printing: 20000,
+    shipping: 3000,
+    paymentFee: 1500,
+    packaging: 1000,
+    gpu: 500,
+  },
+  totalVariableCost: 26000,
+  contributionMargin: 24000,
+  contributionMarginRate: 0.48,
+};
+
+// -----------------------------------------------------------------------------
+// MOCK_TEAM_COSTS - 5-person team monthly cost structure
+// 대표 takes dividend, 4 employees with salaries
+// Monthly personnel: 1500만원 + social insurance 300만원 = 1800만원
+// -----------------------------------------------------------------------------
+
+export const MOCK_TEAM_COSTS = {
+  totalMembers: 5,
+  members: [
+    { role: '대표 (CEO)', salary: 0, note: '배당' },
+    { role: 'CS + 운영', salary: 3600, note: '만원/년' },
+    { role: '마케팅', salary: 4500, note: '만원/년' },
+    { role: '풀스택 개발', salary: 4500, note: '만원/년' },
+    { role: '운영 매니저', salary: 4000, note: '만원/년' },
+  ],
+  monthlyPersonnel: 1500,
+  monthlySocialInsurance: 300,
+  monthlyTotal: 1800,
+};
+
+// -----------------------------------------------------------------------------
+// MOCK_BEP - Break-Even Point Analysis
+// Fixed costs 2300만원/month (excluding marketing)
+// Contribution per unit: 24,000원
+// BEP = 2300만 / 24000원 ≈ 96 units/month
+// Current: 10,400 units → 108x BEP
+// -----------------------------------------------------------------------------
+
+export const MOCK_BEP = {
+  fixedCostMonthly: 2300,
+  contributionPerUnit: 24000,
+  bepUnits: 96,
+  currentMonthlyUnits: 10400,
+  bepMultiple: 108,
 };

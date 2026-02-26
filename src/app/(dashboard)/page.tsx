@@ -72,8 +72,8 @@ function RevenueTooltip({
   if (!active || !payload?.length) return null;
 
   return (
-    <div className="rounded-lg border bg-white px-3 py-2 shadow-md">
-      <p className="mb-1 text-sm font-medium text-gray-700">{label}</p>
+    <div className="rounded-lg border bg-card px-3 py-2 shadow-md">
+      <p className="mb-1 text-sm font-medium text-foreground/80">{label}</p>
       {payload.map((entry) => (
         <p key={entry.name} className="text-sm" style={{ color: entry.color }}>
           {entry.name}: {fmtWon(entry.value)}
@@ -105,7 +105,7 @@ const FUNNEL_BAR_COLORS = [
 function ChangeIndicator({ value }: { value: number }) {
   if (value === 0) {
     return (
-      <span className="flex items-center gap-0.5 text-sm text-gray-500">
+      <span className="flex items-center gap-0.5 text-sm text-muted-foreground">
         <Minus className="h-3.5 w-3.5" />
         0%
       </span>
@@ -117,7 +117,7 @@ function ChangeIndicator({ value }: { value: number }) {
   return (
     <span
       className={`flex items-center gap-0.5 text-sm font-medium ${
-        isPositive ? 'text-emerald-600' : 'text-red-500'
+        isPositive ? 'text-emerald-400' : 'text-red-500'
       }`}
     >
       {isPositive ? (
@@ -142,7 +142,7 @@ function TrendIcon({ trend }: { trend: 'up' | 'down' | 'stable' }) {
     case 'down':
       return <TrendingDown className="h-4 w-4 text-red-500" />;
     case 'stable':
-      return <Minus className="h-4 w-4 text-gray-400" />;
+      return <Minus className="h-4 w-4 text-muted-foreground" />;
   }
 }
 
@@ -281,14 +281,21 @@ export default function DashboardPage() {
                     name="매출"
                     fill="#8b5cf6"
                     radius={[4, 4, 0, 0]}
-                    barSize={28}
+                    barSize={20}
                   />
                   <Bar
                     dataKey="grossProfit"
                     name="매출총이익"
                     fill="#34d399"
                     radius={[4, 4, 0, 0]}
-                    barSize={28}
+                    barSize={20}
+                  />
+                  <Bar
+                    dataKey="operatingProfit"
+                    name="영업이익"
+                    fill="#f59e0b"
+                    radius={[4, 4, 0, 0]}
+                    barSize={20}
                   />
                 </BarChart>
               </ResponsiveContainer>
@@ -306,13 +313,13 @@ export default function DashboardPage() {
               {MOCK_FUNNEL_STEPS.map((step, idx) => (
                 <div key={step.label} className="flex items-center gap-3">
                   {/* Label */}
-                  <span className="w-24 shrink-0 text-right text-xs text-gray-600">
+                  <span className="w-24 shrink-0 text-right text-xs text-muted-foreground">
                     {step.label}
                   </span>
 
                   {/* Horizontal bar */}
                   <div className="relative flex-1">
-                    <div className="h-7 w-full rounded bg-gray-100" />
+                    <div className="h-7 w-full rounded bg-muted" />
                     <div
                       className="absolute inset-y-0 left-0 flex items-center rounded"
                       style={{
@@ -320,14 +327,14 @@ export default function DashboardPage() {
                         backgroundColor: FUNNEL_BAR_COLORS[idx],
                       }}
                     >
-                      <span className="pl-2 text-xs font-medium text-gray-700">
+                      <span className="pl-2 text-xs font-medium text-foreground/80">
                         {fmt(step.count)}
                       </span>
                     </div>
                   </div>
 
                   {/* Percentage */}
-                  <span className="w-12 shrink-0 text-right text-xs font-semibold text-gray-800">
+                  <span className="w-12 shrink-0 text-right text-xs font-semibold text-foreground">
                     {step.percentage}%
                   </span>
 
@@ -360,7 +367,7 @@ export default function DashboardPage() {
                 <Link
                   key={alert.id}
                   href={alert.link}
-                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-gray-50"
+                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-accent"
                 >
                   <div className="flex items-center gap-3">
                     <Badge
@@ -382,10 +389,10 @@ export default function DashboardPage() {
                     <span className="text-sm font-medium">{alert.label}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-gray-900">
+                    <span className="text-lg font-bold text-foreground">
                       {alert.count}건
                     </span>
-                    <ExternalLink className="h-4 w-4 text-gray-400" />
+                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
                   </div>
                 </Link>
               ))}
